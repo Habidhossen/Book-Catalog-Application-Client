@@ -1,11 +1,11 @@
 import "./App.css";
-import Banner from "./components/Banner";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <>
       <div>
-        <Banner />
+        <Login />
       </div>
     </>
   );
