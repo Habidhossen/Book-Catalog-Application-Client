@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 const BookCard = ({ book }) => {
-  const { title, author, genre, publicationDate, coverImage } = book;
+  const { _id, title, author, genre, publicationDate, coverImage } = book;
 
   return (
     <div className="p-4 lg:w-1/5 md:w-1/2">
@@ -16,6 +18,7 @@ const BookCard = ({ book }) => {
           <h3 className="text-gray-500 mb-3">{author}</h3>
           <p className="">{genre}</p>
           <p className="mb-4">{publicationDate}</p>
+          <Link to={`book/${_id}`}>View Book</Link>
         </div>
       </div>
     </div>
