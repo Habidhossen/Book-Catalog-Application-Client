@@ -28,8 +28,13 @@ const BookDetails = () => {
   }
 
   const handleDeleteBtn = (bookId: string) => {
-    console.log(bookId);
-    deleteBook(bookId);
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this book?"
+    );
+
+    if (isConfirmed) {
+      deleteBook(bookId);
+    }
   };
 
   // is Success return to book details page
