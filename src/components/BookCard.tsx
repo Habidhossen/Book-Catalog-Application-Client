@@ -18,7 +18,7 @@ const BookCard = ({ book }) => {
           <h3 className="text-gray-500 mb-3">{author}</h3>
           <p className="">{genre}</p>
           <p className="mb-4">{publicationDate}</p>
-          <Link to={`book/${_id}`}>View Book</Link>
+          <Link to={`/book/${_id}`}>View Book</Link>
         </div>
       </div>
     </div>

@@ -1,4 +1,21 @@
+import BookCard from "../components/BookCard";
+import Loader from "../components/Loader";
+import { useGetBooksQuery } from "../redux/features/books/bookApi";
+import { Book } from "../types/globalTypes";
+
 const AllBooks = () => {
+  // fetching data by RTK Query
+  const { data, isLoading, isError } = useGetBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isError) {
+    console.log(isError);
+  }
+
   return (
     <section>
       <div>
@@ -31,6 +48,13 @@ const AllBooks = () => {
               <option>Publication Year</option>
             </select>
           </div>
+        </div>
+
+        {/* all book */}
+        <div className="flex flex-wrap -m-4">
+          {data?.data.map((book: Book) => (
+            <BookCard key={book._id} book={book} />
+          ))}
         </div>
       </div>
     </section>
