@@ -1,21 +1,40 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { useGetOneBookQuery } from "../redux/features/books/bookApi";
+import {
+  useDeleteBookMutation,
+  useGetOneBookQuery,
+} from "../redux/features/books/bookApi";
 
 const BookDetails = () => {
-  // get book id from param
+  // get book id from params
   const { id: bookId } = useParams();
+  // for navigate
+  const navigate = useNavigate();
 
   // fetching data by RTK Query
   const { data, isLoading, isError } = useGetOneBookQuery(bookId, {
     refetchOnMountOrArgChange: true,
   });
 
+  const [deleteBook, { isSuccess }] = useDeleteBookMutation();
+
+  console.log(isLoading, isError);
+
   if (isLoading) {
-    <Loader />;
+    return <Loader />;
   }
   if (isError) {
     console.log(isError);
+  }
+
+  const handleDeleteBtn = (bookId: string) => {
+    console.log(bookId);
+    deleteBook(bookId);
+  };
+
+  // is Success return to book details page
+  if (isSuccess) {
+    navigate("/");
   }
 
   return (
@@ -106,8 +125,11 @@ const BookDetails = () => {
               >
                 Edit Book
               </Link>
-              <button className="flex ml-4 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
-                Delete Book
+              <button
+                onClick={() => handleDeleteBtn(data?.data?._id)}
+                className="flex ml-4 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+              >
+                {isLoading ? "Loading..." : "Delete Book"}
               </button>
             </div>
           </div>

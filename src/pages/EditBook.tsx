@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetOneBookQuery,
   useUpdateBookMutation,
@@ -7,14 +7,17 @@ import {
 import { Book } from "../types/globalTypes";
 
 const EditBook = () => {
-  // get book id from param
+  // get book id from params
   const { id: bookId } = useParams();
+  // for navigate
+  const navigate = useNavigate();
 
   // fetching data by RTK Query
   const { data: book } = useGetOneBookQuery(bookId);
-  const [updateBook, { isLoading, isError }] = useUpdateBookMutation();
+  const [updateBook, { isLoading, isError, isSuccess }] =
+    useUpdateBookMutation();
 
-  console.log(isLoading, isError);
+  console.log(isLoading, isError, isSuccess);
 
   // Create the form
   const {
@@ -31,6 +34,11 @@ const EditBook = () => {
     };
     updateBook(options);
   };
+
+  // is Success return to book details page
+  if (isSuccess) {
+    navigate(`/book/${book?.data._id}`);
+  }
 
   return (
     <section className="w-full h-screen flex flex-col items-center justify-center px-4">
@@ -98,7 +106,7 @@ const EditBook = () => {
 
           <div className="pt-4">
             <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-              Update Book
+              {isLoading ? "Updating..." : "Update Book"}
             </button>
           </div>
         </form>

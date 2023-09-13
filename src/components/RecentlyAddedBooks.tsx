@@ -10,7 +10,7 @@ const RecentlyAddedBooks = () => {
   });
 
   if (isLoading) {
-    <Loader />;
+    return <Loader />;
   }
   if (isError) {
     console.log(isError);
