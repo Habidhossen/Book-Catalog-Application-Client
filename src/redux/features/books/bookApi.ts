@@ -6,6 +6,7 @@ export const bookApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://book-catalog-application-server.onrender.com/api/v1",
   }),
+  tagTypes: ["review"],
   endpoints: (builder) => ({
     // get all books
     getBooks: builder.query({
@@ -14,6 +15,7 @@ export const bookApi = createApi({
     // get one book
     getOneBook: builder.query({
       query: (bookId) => `/book/${bookId}`,
+      providesTags: ["review"],
     }),
     // post a new book
     postBook: builder.mutation({
@@ -38,10 +40,6 @@ export const bookApi = createApi({
         method: "DELETE",
       }),
     }),
-    // get all book reviews
-    getBookReviews: builder.query({
-      query: () => "/review",
-    }),
     // post a book review
     postBookReview: builder.mutation({
       query: (data) => ({
@@ -49,6 +47,7 @@ export const bookApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["review"],
     }),
   }),
 });
@@ -59,4 +58,5 @@ export const {
   usePostBookMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,
+  usePostBookReviewMutation,
 } = bookApi;

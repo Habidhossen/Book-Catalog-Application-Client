@@ -1,8 +1,10 @@
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import {
   useDeleteBookMutation,
   useGetOneBookQuery,
+  usePostBookReviewMutation,
 } from "../redux/features/books/bookApi";
 
 const BookDetails = () => {
@@ -10,6 +12,35 @@ const BookDetails = () => {
   const { id: bookId } = useParams();
   // for navigate
   const navigate = useNavigate();
+
+  // Define the form data structure
+  type FormData = {
+    rating: number;
+    comment: string;
+  };
+
+  // Create the form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const [postBookReview, { isLoading: postBookReviewLoading }] =
+    usePostBookReviewMutation();
+
+  // Define the onSubmit function with the correct type
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    const commentData = {
+      bookId: bookId,
+      username: "Habid Hossen",
+      image: "",
+      comment: data?.comment,
+      rating: data?.rating,
+    };
+    postBookReview(commentData);
+    console.log(commentData);
+  };
 
   // fetching data by RTK Query
   const { data, isLoading, isError } = useGetOneBookQuery(bookId, {
@@ -141,19 +172,42 @@ const BookDetails = () => {
             </div>
 
             <div>
-              <p className="text-md font-semibold mt-8">Give Reviews</p>
-              <textarea
-                placeholder="Write comment"
-                rows={5}
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-              <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                <option disabled>Select Rating</option>
-                <option>1</option>
-              </select>
-              <button className="w-full mt-2 px-5 py-3 text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200">
-                Leave Comment
-              </button>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <p className="text-md font-semibold mt-8">Give Reviews</p>
+                <select
+                  className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+                  defaultValue=""
+                  {...register("rating", { required: true })}
+                >
+                  <option disabled value="">
+                    Select Rating
+                  </option>
+                  <option value={1}>1 out of 5</option>
+                  <option value={2}>2 out of 5</option>
+                  <option value={3}>3 out of 5</option>
+                  <option value={4}>4 out of 5</option>
+                  <option value={5}>5 out of 5</option>
+                </select>
+                {errors.rating && (
+                  <span className="label-text-alt text-red-500 mt-2">
+                    Rating is required
+                  </span>
+                )}
+                <textarea
+                  placeholder="Write comment"
+                  rows={5}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                  {...register("comment", { required: true })}
+                />
+                {errors.comment && (
+                  <span className="label-text-alt text-red-500 mt-2">
+                    Comment is required
+                  </span>
+                )}
+                <button className="w-full mt-2 px-5 py-3 text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200">
+                  {postBookReviewLoading ? "Loading..." : "Leave Comment"}
+                </button>
+              </form>
             </div>
           </div>
 
@@ -164,53 +218,55 @@ const BookDetails = () => {
             </h1>
 
             {/* card */}
-            {data?.data?.reviews.map((review) => (
-              <div
-                className="border-2 px-10 py-4 rounded-lg mb-2"
-                key={review._id}
-              >
-                <div className="flex items-center gap-x-3">
-                  <img
-                    src={
-                      review?.image
-                        ? review?.image
-                        : "https://t4.ftcdn.net/jpg/05/42/36/11/360_F_542361185_VFRJWpR2FH5OiAEVveWO7oZnfSccZfD3.jpg"
-                    }
-                    className="w-16 h-16 rounded-full"
-                  />
-                  <div>
-                    <span className="block text-gray-700 font-medium">
-                      {review?.username}
-                    </span>
-                    <div className="flex items-center gap-3">
-                      {/* render star based on ratings */}
-                      <span className="flex items-center">
-                        {Array.from({ length: 5 }, (_, index) => (
-                          <svg
-                            key={index}
-                            fill={
-                              index < review?.rating ? "currentColor" : "none"
-                            }
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            className="w-4 h-4 text-purple-500"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                          </svg>
-                        ))}
+            {data?.data?.reviews
+              .map((review) => (
+                <div
+                  className="border-2 px-10 py-4 rounded-lg mb-2"
+                  key={review._id}
+                >
+                  <div className="flex items-center gap-x-3">
+                    <img
+                      src={
+                        review?.image
+                          ? review?.image
+                          : "https://t4.ftcdn.net/jpg/05/42/36/11/360_F_542361185_VFRJWpR2FH5OiAEVveWO7oZnfSccZfD3.jpg"
+                      }
+                      className="w-16 h-16 rounded-full"
+                    />
+                    <div>
+                      <span className="block text-gray-700 font-medium">
+                        {review?.username}
                       </span>
-                      {review?.rating} out of 5
+                      <div className="flex items-center gap-3">
+                        {/* render star based on ratings */}
+                        <span className="flex items-center">
+                          {Array.from({ length: 5 }, (_, index) => (
+                            <svg
+                              key={index}
+                              fill={
+                                index < review?.rating ? "currentColor" : "none"
+                              }
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              className="w-4 h-4 text-purple-500"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                          ))}
+                        </span>
+                        {review?.rating} out of 5
+                      </div>
                     </div>
                   </div>
+                  <div>
+                    <h6 className="mt-2">{review?.comment}</h6>
+                  </div>
                 </div>
-                <div>
-                  <h6 className="mt-2">{review?.comment}</h6>
-                </div>
-              </div>
-            ))}
+              ))
+              .reverse()}
           </div>
         </div>
       </div>
