@@ -139,6 +139,22 @@ const BookDetails = () => {
                 {isLoading ? "Loading..." : "Delete Book"}
               </button>
             </div>
+
+            <div>
+              <p className="text-md font-semibold mt-8">Give Reviews</p>
+              <textarea
+                placeholder="Write comment"
+                rows={5}
+                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+              <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                <option disabled>Select Rating</option>
+                <option>1</option>
+              </select>
+              <button className="w-full mt-2 px-5 py-3 text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200">
+                Leave Comment
+              </button>
+            </div>
           </div>
 
           {/* review section */}
