@@ -118,7 +118,9 @@ const BookDetails = () => {
                 >
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                 </svg>
-                <span className="text-gray-600 ml-3">4 Reviews</span>
+                <span className="text-gray-600 ml-3">
+                  {data?.data?.reviews.length} Reviews
+                </span>
               </span>
               <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s"></span>
             </div>
@@ -137,6 +139,43 @@ const BookDetails = () => {
                 {isLoading ? "Loading..." : "Delete Book"}
               </button>
             </div>
+          </div>
+
+          {/* review section */}
+          <div className="w-full">
+            <h1 className="text-xl font-semibold mt-8 mb-2">
+              Reviews and Ratings ({data?.data?.reviews.length})
+            </h1>
+
+            {/* card */}
+            {data?.data?.reviews.map((review) => (
+              <div
+                className="border-2 px-10 py-4 rounded-lg mb-2"
+                key={review._id}
+              >
+                <div className="flex items-center gap-x-3">
+                  <img
+                    src={
+                      review?.image
+                        ? review?.image
+                        : "https://t4.ftcdn.net/jpg/05/42/36/11/360_F_542361185_VFRJWpR2FH5OiAEVveWO7oZnfSccZfD3.jpg"
+                    }
+                    className="w-16 h-16 rounded-full"
+                  />
+                  <div>
+                    <span className="block text-gray-700 font-medium">
+                      {review?.username}
+                    </span>
+                    <span className="block text-gray-700 text-sm">
+                      Rating: {review?.rating} star
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h6 className="mt-2">{review?.comment}</h6>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
