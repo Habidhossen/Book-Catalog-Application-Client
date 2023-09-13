@@ -1,7 +1,12 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { usePostBookMutation } from "../redux/features/books/bookApi";
 import { Book } from "../types/globalTypes";
 
 const AddNewBook = () => {
+  const [postBook, { isLoading, isError }] = usePostBookMutation();
+
+  console.log(isLoading, isError);
+
   // Create the form
   const {
     register,
@@ -11,7 +16,12 @@ const AddNewBook = () => {
 
   // Define the onSubmit function with the correct type
   const onSubmit: SubmitHandler<Book> = (data) => {
-    console.log(data);
+    const bookData = {
+      ...data,
+      coverImage:
+        "https://www.seobongo.com/en/placeholder/600x800/d5d5d5/584959/Book%20Catalog%20Application/png", //just add a new field for book cover placeholder in current object
+    };
+    postBook(bookData);
   };
   return (
     <section className="w-full h-screen flex flex-col items-center justify-center px-4">

@@ -5,7 +5,9 @@ import Loader from "./Loader";
 
 const RecentlyAddedBooks = () => {
   // fetching data by RTK Query
-  const { data, isLoading, isError } = useGetBooksQuery(undefined);
+  const { data, isLoading, isError } = useGetBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
 
   if (isLoading) {
     <Loader />;

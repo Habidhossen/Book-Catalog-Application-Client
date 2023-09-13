@@ -7,7 +7,9 @@ const BookDetails = () => {
   const { id: bookId } = useParams();
 
   // fetching data by RTK Query
-  const { data, isLoading, isError } = useGetOneBookQuery(bookId);
+  const { data, isLoading, isError } = useGetOneBookQuery(bookId, {
+    refetchOnMountOrArgChange: true,
+  });
 
   if (isLoading) {
     <Loader />;

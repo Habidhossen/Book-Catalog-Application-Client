@@ -1,7 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import Loader from "../components/Loader";
-import { useGetOneBookQuery } from "../redux/features/books/bookApi";
+import {
+  useGetOneBookQuery,
+  useUpdateBookMutation,
+} from "../redux/features/books/bookApi";
 import { Book } from "../types/globalTypes";
 
 const EditBook = () => {
@@ -9,14 +11,10 @@ const EditBook = () => {
   const { id: bookId } = useParams();
 
   // fetching data by RTK Query
-  const { data, isLoading, isError } = useGetOneBookQuery(bookId);
+  const { data: book } = useGetOneBookQuery(bookId);
+  const [updateBook, { isLoading, isError }] = useUpdateBookMutation();
 
-  if (isLoading) {
-    <Loader />;
-  }
-  if (isError) {
-    console.log(isError);
-  }
+  console.log(isLoading, isError);
 
   // Create the form
   const {
@@ -27,7 +25,11 @@ const EditBook = () => {
 
   // Define the onSubmit function with the correct type
   const onSubmit: SubmitHandler<Book> = (data) => {
-    console.log(data);
+    const options = {
+      bookId: book?.data._id,
+      data: data,
+    };
+    updateBook(options);
   };
 
   return (
@@ -41,7 +43,7 @@ const EditBook = () => {
             <label className="font-medium">Book Title</label>
             <input
               type="text"
-              defaultValue={data?.data?.title}
+              defaultValue={book?.data?.title}
               className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               {...register("title", { required: true })}
             />
@@ -55,7 +57,7 @@ const EditBook = () => {
             <label className="font-medium">Author</label>
             <input
               type="text"
-              defaultValue={data?.data?.author}
+              defaultValue={book?.data?.author}
               className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               {...register("author", { required: true })}
             />
@@ -69,7 +71,7 @@ const EditBook = () => {
             <label className="font-medium">Genre</label>
             <input
               type="text"
-              defaultValue={data?.data?.genre}
+              defaultValue={book?.data?.genre}
               className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               {...register("genre", { required: true })}
             />
@@ -83,7 +85,7 @@ const EditBook = () => {
             <label className="font-medium">Publication Date</label>
             <input
               type="date"
-              defaultValue={data?.data?.publicationDate}
+              defaultValue={book?.data?.publicationDate}
               className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               {...register("publicationDate", { required: true })}
             />

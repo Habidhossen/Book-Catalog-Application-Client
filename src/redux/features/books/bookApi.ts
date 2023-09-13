@@ -13,7 +13,26 @@ export const bookApi = createApi({
     getOneBook: builder.query({
       query: (bookId) => `/book/${bookId}`,
     }),
+    postBook: builder.mutation({
+      query: (data) => ({
+        url: "/book",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    updateBook: builder.mutation({
+      query: ({ bookId, data }) => ({
+        url: `/book/${bookId}`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetBooksQuery, useGetOneBookQuery } = bookApi;
+export const {
+  useGetBooksQuery,
+  useGetOneBookQuery,
+  usePostBookMutation,
+  useUpdateBookMutation,
+} = bookApi;
