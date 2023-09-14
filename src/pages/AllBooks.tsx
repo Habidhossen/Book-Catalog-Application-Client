@@ -40,9 +40,19 @@ const AllBooks = () => {
 
   // Filter and render books
   const filteredBooks = data?.data
-    .filter((book: Book) =>
-      book.title.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    .filter((book: Book) => {
+      const titleMatch = book.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const authorMatch = book.author
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const genreMatch = book.genre
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      return titleMatch || authorMatch || genreMatch;
+    })
     .filter((book: Book) => !selectedGenre || book.genre === selectedGenre)
     .filter(
       (book: Book) =>
