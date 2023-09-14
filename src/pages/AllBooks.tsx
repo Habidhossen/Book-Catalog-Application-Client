@@ -65,7 +65,7 @@ const AllBooks = () => {
               className="p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
             >
               <option value="">Please select</option>
-              {data?.data?.map((book) => (
+              {data?.data?.map((book: { _id: number; genre: string }) => (
                 <option key={book._id} value={book?.genre}>
                   {book?.genre}
                 </option>
@@ -82,11 +82,13 @@ const AllBooks = () => {
               className="p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
             >
               <option value="">Please select</option>
-              {data?.data?.map((book) => (
-                <option key={book._id} value={book?.publicationDate}>
-                  {book?.publicationDate}
-                </option>
-              ))}
+              {data?.data?.map(
+                (book: { _id: number; publicationDate: string }) => (
+                  <option key={book._id} value={book?.publicationDate}>
+                    {book?.publicationDate}
+                  </option>
+                )
+              )}
             </select>
           </div>
         </div>

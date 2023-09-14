@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
+import { addToWishlist } from "../redux/features/books/wishlistSlice";
+import { useAppDispatch } from "../redux/hook";
 
 const BookCard = ({ book }) => {
+  // handle dispatch
+  const dispatch = useAppDispatch();
+
+  // destructure book object
   const { _id, title, author, genre, publicationDate, coverImage } = book;
 
-  console.log(book);
+  // handle add to wishlist
+  const handleAddToWishlist = () => {
+    dispatch(addToWishlist(book));
+  };
 
   return (
     <div className="p-4 lg:w-1/5 md:w-1/2">
@@ -22,7 +31,10 @@ const BookCard = ({ book }) => {
           <p className="mb-4">{publicationDate}</p>
           <Link to={`/book/${_id}`}>View Book</Link>
 
-          <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200">
+          <button
+            onClick={() => handleAddToWishlist()}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
