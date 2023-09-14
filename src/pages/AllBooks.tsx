@@ -1,13 +1,54 @@
+import { Link } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import Loader from "../components/Loader";
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
+import {
+  setSearchQuery,
+  setSelectedGenre,
+  setSelectedPublicationYear,
+} from "../redux/features/books/bookSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { Book } from "../types/globalTypes";
 
 const AllBooks = () => {
-  // fetching data by RTK Query
+  const dispatch = useAppDispatch();
   const { data, isLoading, isError } = useGetBooksQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
+
+  // Redux state
+  const searchQuery = useAppSelector((state) => state.book.searchQuery);
+  const selectedGenre = useAppSelector((state) => state.book.selectedGenre);
+  const selectedPublicationYear = useAppSelector(
+    (state) => state.book.selectedPublicationYear
+  );
+
+  // Handle search input change
+  const handleSearchInputChange = (e) => {
+    dispatch(setSearchQuery(e.target.value));
+  };
+
+  // Handle genre filter change
+  const handleGenreFilterChange = (e) => {
+    dispatch(setSelectedGenre(e.target.value));
+  };
+
+  // Handle publication year filter change
+  const handlePublicationYearFilterChange = (e) => {
+    dispatch(setSelectedPublicationYear(e.target.value));
+  };
+
+  // Filter and render books
+  const filteredBooks = data?.data
+    .filter((book: Book) =>
+      book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((book: Book) => !selectedGenre || book.genre === selectedGenre)
+    .filter(
+      (book: Book) =>
+        !selectedPublicationYear ||
+        book.publicationDate === selectedPublicationYear
+    );
 
   if (isLoading) {
     return <Loader />;
@@ -16,12 +57,20 @@ const AllBooks = () => {
     console.log(isError);
   }
 
+  // Determine whether to display all books or filtered books
+  const displayBooks =
+    searchQuery || selectedGenre || selectedPublicationYear
+      ? filteredBooks
+      : data?.data;
+
   return (
     <section>
       <div>
         {/* search bar */}
         <form className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
           <input
+            value={searchQuery}
+            onChange={handleSearchInputChange}
             placeholder="Search by title, author, or genre"
             type="text"
             className="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
@@ -60,6 +109,8 @@ const AllBooks = () => {
           <div>
             <label className="text-sm font-medium text-gray-900">Genre:</label>
             <select
+              value={selectedGenre}
+              onChange={handleGenreFilterChange}
               name=""
               id=""
               className="p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
@@ -77,6 +128,8 @@ const AllBooks = () => {
               Publication Year:
             </label>
             <select
+              value={selectedPublicationYear}
+              onChange={handlePublicationYearFilterChange}
               name=""
               id=""
               className="p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
@@ -91,11 +144,33 @@ const AllBooks = () => {
               )}
             </select>
           </div>
+
+          {/* add new book */}
+          <div>
+            <Link
+              to="/add-new-book"
+              className="flex items-center gap-2 px-4 py-2 text-white bg-indigo-600 rounded-lg duration-150 hover:bg-indigo-500 active:bg-indigo-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 2a1 1 0 011 1v8h8a1 1 0 110 2h-8v8a1 1 0 11-2 0v-8H3a1 1 0 010-2h8V3a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Add new Book
+            </Link>
+          </div>
         </div>
 
         {/* all book */}
         <div className="flex flex-wrap mb-4 px-16">
-          {data?.data.map((book: Book) => (
+          {displayBooks?.map((book: Book) => (
             <BookCard key={book._id} book={book} />
           ))}
         </div>
