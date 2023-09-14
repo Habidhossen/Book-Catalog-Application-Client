@@ -6,7 +6,10 @@ const Navbar = () => {
   const [state, setState] = useState(false);
 
   // navigation bar items with path
-  const navigation = [{ title: "All Books", to: "all-books" }];
+  const navigation = [
+    { title: "All Books", to: "all-books" },
+    { title: "My Wishlist", to: "wishlist" },
+  ];
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
