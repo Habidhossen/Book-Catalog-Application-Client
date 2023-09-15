@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -6,6 +7,7 @@ import {
   useGetOneBookQuery,
   usePostBookReviewMutation,
 } from "../redux/features/books/bookApi";
+import { useAppSelector } from "../redux/hook";
 
 const BookDetails = () => {
   // get book id from params
@@ -18,6 +20,9 @@ const BookDetails = () => {
     rating: number;
     comment: string;
   };
+
+  // get user from Redux state
+  const { user } = useAppSelector((state) => state.user);
 
   // Create the form
   const {
@@ -33,8 +38,8 @@ const BookDetails = () => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const commentData = {
       bookId: bookId,
-      username: "Habid Hossen",
-      image: "",
+      username: getAuth().currentUser?.displayName,
+      image: getAuth().currentUser?.photoURL,
       comment: data?.comment,
       rating: data?.rating,
     };
@@ -156,59 +161,68 @@ const BookDetails = () => {
               <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s"></span>
             </div>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
-            <div className="flex">
-              <Link
-                to={`/edit-book/${data?.data?._id}`}
-                className="flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded"
-              >
-                Edit Book
-              </Link>
-              <button
-                onClick={() => handleDeleteBtn(data?.data?._id)}
-                className="flex ml-4 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-              >
-                {isLoading ? "Loading..." : "Delete Book"}
-              </button>
-            </div>
 
-            <div>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                <p className="text-md font-semibold mt-8">Give Reviews</p>
-                <select
-                  className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
-                  defaultValue=""
-                  {...register("rating", { required: true })}
+            {/* Edit and Delete Book */}
+            {user?.email === data?.data?.userEmail && (
+              <div className="flex">
+                <Link
+                  to={`/edit-book/${data?.data?._id}`}
+                  className="flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded"
                 >
-                  <option disabled value="">
-                    Select Rating
-                  </option>
-                  <option value={1}>1 out of 5</option>
-                  <option value={2}>2 out of 5</option>
-                  <option value={3}>3 out of 5</option>
-                  <option value={4}>4 out of 5</option>
-                  <option value={5}>5 out of 5</option>
-                </select>
-                {errors.rating && (
-                  <span className="label-text-alt text-red-500 mt-2">
-                    Rating is required
-                  </span>
-                )}
-                <textarea
-                  placeholder="Write comment"
-                  rows={5}
-                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                  {...register("comment", { required: true })}
-                />
-                {errors.comment && (
-                  <span className="label-text-alt text-red-500 mt-2">
-                    Comment is required
-                  </span>
-                )}
-                <button className="w-full mt-2 px-5 py-3 text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200">
-                  {postBookReviewLoading ? "Loading..." : "Leave Comment"}
+                  Edit Book
+                </Link>
+                <button
+                  onClick={() => handleDeleteBtn(data?.data?._id)}
+                  className="flex ml-4 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                >
+                  {isLoading ? "Loading..." : "Delete Book"}
                 </button>
-              </form>
-            </div>
+              </div>
+            )}
+
+            {/* give review2 */}
+            {user?.email ? (
+              <div>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                  <p className="text-md font-semibold mt-8">Give Reviews</p>
+                  <select
+                    className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+                    defaultValue=""
+                    {...register("rating", { required: true })}
+                  >
+                    <option disabled value="">
+                      Select Rating
+                    </option>
+                    <option value={1}>1 out of 5</option>
+                    <option value={2}>2 out of 5</option>
+                    <option value={3}>3 out of 5</option>
+                    <option value={4}>4 out of 5</option>
+                    <option value={5}>5 out of 5</option>
+                  </select>
+                  {errors.rating && (
+                    <span className="label-text-alt text-red-500 mt-2">
+                      Rating is required
+                    </span>
+                  )}
+                  <textarea
+                    placeholder="Write comment"
+                    rows={5}
+                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                    {...register("comment", { required: true })}
+                  />
+                  {errors.comment && (
+                    <span className="label-text-alt text-red-500 mt-2">
+                      Comment is required
+                    </span>
+                  )}
+                  <button className="w-full mt-2 px-5 py-3 text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200">
+                    {postBookReviewLoading ? "Loading..." : "Leave Comment"}
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <p>Want to give Review to Login or SignUp now!</p>
+            )}
           </div>
 
           {/* review section */}

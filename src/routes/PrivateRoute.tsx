@@ -19,7 +19,7 @@ const PrivateRoute = ({ children }: IProps) => {
   }
 
   // checking...
-  if (!user.email) {
+  if (!user?.email) {
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
   }
 

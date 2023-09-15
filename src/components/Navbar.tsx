@@ -94,6 +94,13 @@ const Navbar = () => {
               );
             })}
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
+            {user?.email && (
+              <li className="text-gray-700 hover:text-indigo-600">
+                <Link to="add-new-book" className="block">
+                  Add Book
+                </Link>
+              </li>
+            )}
             <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
               {user?.email ? (
                 <li>

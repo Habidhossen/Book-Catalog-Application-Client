@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser, loginWithGoogle } from "../redux/features/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 
@@ -12,7 +12,7 @@ const Login = () => {
   };
 
   // React navigate hook
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Redux dispatch and selector
   const {
@@ -42,7 +42,7 @@ const Login = () => {
   // if user successfully login
   useEffect(() => {
     if (user?.email) {
-      // navigate("/");
+      navigate("/");
     }
   }, [user?.email]);
 

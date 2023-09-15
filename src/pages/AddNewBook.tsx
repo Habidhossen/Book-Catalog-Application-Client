@@ -1,9 +1,11 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostBookMutation } from "../redux/features/books/bookApi";
+import { useAppSelector } from "../redux/hook";
 import { Book } from "../types/globalTypes";
 
 const AddNewBook = () => {
   const [postBook, { isLoading, isError }] = usePostBookMutation();
+  const { user } = useAppSelector((state) => state.user);
 
   console.log(isLoading, isError);
 
@@ -18,6 +20,7 @@ const AddNewBook = () => {
   const onSubmit: SubmitHandler<Book> = (data) => {
     const bookData = {
       ...data,
+      userEmail: user?.email,
       coverImage:
         "https://www.seobongo.com/en/placeholder/600x800/d5d5d5/584959/Book%20Catalog%20Application/png", //just add a new field for book cover placeholder in current object
     };

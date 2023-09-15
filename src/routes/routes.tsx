@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import SignUp from "../pages/SignUp";
 import WishList from "../pages/WishList";
+import PrivateRoute from "./privateRoute";
 
 const router = createBrowserRouter([
   {
@@ -38,11 +39,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-book/:id",
-        element: <EditBook />,
+        element: (
+          <PrivateRoute>
+            <EditBook />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-new-book",
-        element: <AddNewBook />,
+        element: (
+          <PrivateRoute>
+            <AddNewBook />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/wishlist",
