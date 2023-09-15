@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { loginUser } from "../redux/features/auth/userSlice";
+import { loginUser, loginWithGoogle } from "../redux/features/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 const Login = () => {
@@ -32,6 +32,11 @@ const Login = () => {
   // Define the onSubmit function with the correct type
   const onSubmit: SubmitHandler<FormData> = (data) => {
     dispatch(loginUser({ email: data.email, password: data.password }));
+  };
+
+  // handle google login button
+  const handleGoogleLogin = () => {
+    dispatch(loginWithGoogle());
   };
 
   // if user successfully login
@@ -89,7 +94,10 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <button className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100"
+        >
           <svg
             className="w-5 h-5"
             viewBox="0 0 48 48"
