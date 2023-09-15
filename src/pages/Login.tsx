@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { loginUser } from "../redux/features/auth/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 const Login = () => {
   // Define the form data structure
@@ -7,6 +10,17 @@ const Login = () => {
     email: string;
     password: string;
   };
+
+  // React navigate hook
+  // const navigate = useNavigate();
+
+  // Redux dispatch and selector
+  const {
+    user,
+    isLoading,
+    error: firebaseError,
+  } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   // Create the form
   const {
@@ -17,8 +31,15 @@ const Login = () => {
 
   // Define the onSubmit function with the correct type
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+    dispatch(loginUser({ email: data.email, password: data.password }));
   };
+
+  // if user successfully login
+  useEffect(() => {
+    if (user?.email) {
+      // navigate("/");
+    }
+  }, [user?.email]);
 
   return (
     <section className="w-full h-screen flex flex-col items-center justify-center px-4">
@@ -56,10 +77,15 @@ const Login = () => {
                 Password is required
               </span>
             )}
+            {firebaseError && (
+              <span className="label-text-alt text-red-500 mt-2 text-center">
+                {firebaseError}
+              </span>
+            )}
           </div>
           <div className="pt-4">
             <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-              Login
+              {isLoading ? "Loading..." : "Login"}
             </button>
           </div>
         </form>

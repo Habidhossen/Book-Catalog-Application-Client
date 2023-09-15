@@ -1,15 +1,31 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../config/firebase.init";
+import { setUser } from "../redux/features/auth/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 const Navbar = () => {
   // declare state for handling navigation bar
   const [state, setState] = useState(false);
+
+  // Redux dispatch and selector
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   // navigation bar items with path
   const navigation = [
     { title: "All Books", to: "all-books" },
     { title: "My Wishlist", to: "wishlist" },
   ];
+
+  // handle SignOut button
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      dispatch(setUser(null));
+    });
+  };
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
@@ -74,22 +90,35 @@ const Navbar = () => {
             })}
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
             <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
-              <li>
-                <Link
-                  to="login"
-                  className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
-                >
-                  Log in
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="signup"
-                  className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
-                >
-                  Sign in
-                </Link>
-              </li>
+              {user?.email ? (
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="block py-3 px-4 font-medium text-center text-white bg-red-600 hover:bg-red-500 active:bg-red-700 active:shadow-none rounded-lg shadow md:inline"
+                  >
+                    Sign out
+                  </button>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      to="login"
+                      className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
+                    >
+                      Log in
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="signup"
+                      className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
+                    >
+                      Sign in
+                    </Link>
+                  </li>
+                </>
+              )}
             </div>
           </ul>
         </div>
