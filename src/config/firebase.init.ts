@@ -1,4 +1,5 @@
-/* import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,5 +15,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // export auth
-export const auth = useAuth(app);
- */
+export const auth = getAuth(app);
+
+console.log(import.meta.env.VITE_apiKey);
