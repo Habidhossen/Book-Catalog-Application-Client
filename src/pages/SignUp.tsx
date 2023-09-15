@@ -33,7 +33,13 @@ const SignUp = () => {
   // Define the onSubmit function with the correct type
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // create account by Firebase and Redux
-    dispatch(createUser({ email: data.email, password: data.password }));
+    dispatch(
+      createUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
+    );
   };
 
   // if user successfully login

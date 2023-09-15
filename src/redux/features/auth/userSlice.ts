@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../../config/firebase.init";
 
@@ -19,6 +20,11 @@ interface IUserState {
 
 // declare Credential Interface
 interface ICredential {
+  name: string;
+  email: string;
+  password: string;
+}
+interface ILogin {
   email: string;
   password: string;
 }
@@ -36,8 +42,11 @@ const initialState: IUserState = {
 // create a new User by Firebase authentication
 export const createUser = createAsyncThunk(
   "user/createUser",
-  async ({ email, password }: ICredential) => {
+  async ({ name, email, password }: ICredential) => {
+    // create User
     const data = await createUserWithEmailAndPassword(auth, email, password);
+    // Set the user's display name (username) in Firebase
+    await updateProfile(data.user, { displayName: name });
     return data.user.email;
   }
 );
@@ -45,7 +54,7 @@ export const createUser = createAsyncThunk(
 // Login a User by Firebase authentication
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async ({ email, password }: ICredential) => {
+  async ({ email, password }: ILogin) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
     return data.user.email;
   }

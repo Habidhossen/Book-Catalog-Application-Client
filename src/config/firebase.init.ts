@@ -16,5 +16,3 @@ const app = initializeApp(firebaseConfig);
 
 // export auth
 export const auth = getAuth(app);
-
-console.log(import.meta.env.VITE_apiKey);
