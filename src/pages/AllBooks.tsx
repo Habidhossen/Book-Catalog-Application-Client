@@ -126,9 +126,15 @@ const AllBooks = () => {
               className="p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
             >
               <option value="">Please select</option>
-              {data?.data?.map((book: { _id: number; genre: string }) => (
-                <option key={book._id} value={book?.genre}>
-                  {book?.genre}
+              {[
+                ...(new Set<string>(
+                  data?.data?.map(
+                    (book: { _id: number; genre: string }) => book?.genre
+                  )
+                ) || []),
+              ].map((uniqueGenre, index) => (
+                <option key={index} value={uniqueGenre}>
+                  {uniqueGenre}
                 </option>
               ))}
             </select>
@@ -145,13 +151,18 @@ const AllBooks = () => {
               className="p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
             >
               <option value="">Please select</option>
-              {data?.data?.map(
-                (book: { _id: number; publicationDate: string }) => (
-                  <option key={book._id} value={book?.publicationDate}>
-                    {book?.publicationDate}
-                  </option>
-                )
-              )}
+              {[
+                ...(new Set<string>(
+                  data?.data?.map(
+                    (book: { _id: number; publicationDate: string }) =>
+                      book?.publicationDate
+                  )
+                ) || []),
+              ].map((uniquePublicationYear, index) => (
+                <option key={index} value={uniquePublicationYear}>
+                  {uniquePublicationYear}
+                </option>
+              ))}
             </select>
           </div>
 

@@ -29,9 +29,10 @@ const RecentlyAddedBooks = () => {
           </p>
         </div>
         <div className="flex flex-wrap -m-4">
-          {data?.data.map((book: Book) => (
-            <BookCard key={book._id} book={book} />
-          ))}
+          {data?.data
+            .map((book: Book) => <BookCard key={book._id} book={book} />)
+            .reverse()
+            .slice(0, 10)}
         </div>
       </div>
     </section>
