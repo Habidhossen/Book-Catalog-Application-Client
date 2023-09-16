@@ -1,37 +1,28 @@
 const Banner = () => {
   return (
-    <div>
-      <div className="container px-6 py-16 mx-auto">
-        <div className="items-center lg:flex">
-          <div className="w-full lg:w-1/2">
-            <div className="lg:max-w-lg">
-              <h1 className="text-3xl font-semibold text-gray-800 lg:text-4xl">
-                Best place to choose your
-                <span className="text-blue-500 "> Books</span>
-              </h1>
+    <section className="relative">
+      {/* Gradient and blur background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 via-indigo-200 to-indigo-50 blur-xl"></div>
 
-              <p className="mt-3 text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
-                beatae error laborum ab amet sunt recusandae? Reiciendis natus
-                perspiciatis optio.
-              </p>
-
-              <button className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                Read Now
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-            <img
-              className="w-full h-full lg:max-w-3xl"
-              src="https://merakiui.com/images/components/Catalogue-pana.svg"
-              alt="banner"
-            />
+      <div className="container py-28 mx-auto relative text-center">
+        <div className="flex flex-col items-center justify-center h-full">
+          <div className="w-1/2">
+            <h1 className="text-5xl font-bold leading-snug">
+              Best place to choose <br />
+              your books.
+            </h1>
+            <p className="mt-4">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
+              beatae error laborum ab amet sunt recusandae? Reiciendis natus
+              perspiciatis optio.
+            </p>
+            <button className="w-full px-5 py-2 mt-6 text-sm text-white duration-300 transform bg-slate-950 rounded-lg lg:w-auto hover:bg-slate-800">
+              Explore now
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
