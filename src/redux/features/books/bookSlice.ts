@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// declare book state interface
 interface BookState {
   searchQuery: string;
   selectedGenre: string;
   selectedPublicationYear: string;
 }
 
+// declare state
 const initialState: BookState = {
   searchQuery: "",
   selectedGenre: "",
   selectedPublicationYear: "",
 };
 
+// create book slice
 const bookSlice = createSlice({
   name: "books",
   initialState,

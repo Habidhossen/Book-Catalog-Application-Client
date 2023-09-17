@@ -6,7 +6,7 @@ export const bookApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://book-catalog-application-server.onrender.com/api/v1",
   }),
-  tagTypes: ["review"],
+  tagTypes: ["review"], // tags
   endpoints: (builder) => ({
     // get all books
     getBooks: builder.query({

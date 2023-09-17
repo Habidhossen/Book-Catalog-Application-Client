@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// declare interface
 interface IBook {
   _id: string;
   title: string;
@@ -8,15 +9,16 @@ interface IBook {
   publicationDate: string;
   coverImage?: string;
 }
-
 interface WishlistState {
   books: IBook[];
 }
 
+// declare initial state
 const initialState: WishlistState = {
   books: [],
 };
 
+// create a wishlist slice
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
