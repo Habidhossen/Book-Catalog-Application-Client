@@ -31,6 +31,7 @@ const Navbar = () => {
   // get current User from firebase
   const currentUser = getAuth().currentUser; 
   */
+  console.log(getAuth().currentUser);
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
@@ -103,14 +104,28 @@ const Navbar = () => {
             )}
             <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
               {user?.email ? (
-                <li>
-                  <button
-                    onClick={handleSignOut}
-                    className="block py-3 px-4 font-medium text-center text-white bg-red-600 hover:bg-red-500 active:bg-red-700 active:shadow-none rounded-lg shadow md:inline"
-                  >
-                    Sign out
-                  </button>
-                </li>
+                // <li>
+                //   <button
+                //     onClick={handleSignOut}
+                //     className="block py-3 px-4 font-medium text-center text-white bg-red-600 hover:bg-red-500 active:bg-red-700 active:shadow-none rounded-lg shadow md:inline"
+                //   >
+                //     Sign out
+                //   </button>
+                // </li>
+                <div className="flex items-center gap-x-3">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/79.jpg"
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div>
+                    <span className="block text-gray-700 text-sm font-medium">
+                      {user?.name}
+                    </span>
+                    <span className="block text-gray-700 text-xs">
+                      {user?.email}
+                    </span>
+                  </div>
+                </div>
               ) : (
                 <>
                   <li>
