@@ -130,7 +130,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="login"
-                      className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
+                      className="block py-3 text-center text-gray-700 hover:text-[#16a571] border rounded-lg md:border-none"
                     >
                       Log in
                     </Link>
@@ -138,7 +138,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="signup"
-                      className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
+                      className="block py-3 px-4 font-medium text-center text-white bg-[#16a571] hover:bg-green-600 active:bg-bg-green-700 active:shadow-none rounded-lg shadow md:inline"
                     >
                       Sign in
                     </Link>

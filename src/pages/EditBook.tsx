@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetOneBookQuery,
@@ -33,6 +34,9 @@ const EditBook = () => {
       data: data,
     };
     updateBook(options);
+
+    // success toast
+    toast.success("Book updated successfully");
   };
 
   // is Success return to book details page
