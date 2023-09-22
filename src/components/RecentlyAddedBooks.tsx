@@ -9,31 +9,31 @@ const RecentlyAddedBooks = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  // is loading...
   if (isLoading) {
     return <Loader />;
   }
+  // is error
   if (isError) {
     console.log(isError);
   }
 
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="flex flex-col text-center w-full mb-20">
-          <h1 className="text-2xl font-medium title-font mb-4 text-gray-900">
-            Recently Added Book
-          </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum,
-            reprehenderit minus. Explicabo possimus consectetur ab!
-          </p>
-        </div>
-        <div className="flex flex-wrap -m-4">
-          {data?.data
-            .map((book: Book) => <BookCard key={book._id} book={book} />)
-            .reverse()
-            .slice(0, 10)}
-        </div>
+    <section className="px-8 md:log-16 lg:px-20 py-20 bg-gray-50">
+      <div className="text-center">
+        <h1 className="text-2xl font-semibold">
+          Recently <span className="text-[#16A571]">Added Book</span>
+        </h1>
+        <p className="text-md mt-2">
+          Dive into a World of Fresh Literary Adventures and Explore the Latest
+          Releases and Hidden Gems.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-8 py-12">
+        {data?.data
+          .map((book: Book) => <BookCard key={book._id} book={book} />)
+          .reverse()
+          .slice(0, 10)}
       </div>
     </section>
   );
