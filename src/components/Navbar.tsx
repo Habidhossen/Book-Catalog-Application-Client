@@ -1,4 +1,4 @@
-import { signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../config/firebase.init";
@@ -31,16 +31,13 @@ const Navbar = () => {
   // get current User from firebase
   const currentUser = getAuth().currentUser; 
   */
-  console.log(getAuth().currentUser);
 
   return (
-    <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
+    <nav className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-10 text-sm">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
         <div className="flex items-center justify-between py-3 md:py-5 md:block">
           <Link to="/">
-            <h1 className="text-2xl font-bold text-indigo-600">
-              Book Application
-            </h1>
+            <h1 className="text-2xl font-bold text-black">Book Store.</h1>
           </Link>
           <div className="md:hidden">
             <button
@@ -104,26 +101,27 @@ const Navbar = () => {
             )}
             <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
               {user?.email ? (
-                // <li>
-                //   <button
-                //     onClick={handleSignOut}
-                //     className="block py-3 px-4 font-medium text-center text-white bg-red-600 hover:bg-red-500 active:bg-red-700 active:shadow-none rounded-lg shadow md:inline"
-                //   >
-                //     Sign out
-                //   </button>
-                // </li>
-                <div className="flex items-center gap-x-3">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/79.jpg"
-                    className="w-12 h-12 rounded-full"
-                  />
-                  <div>
-                    <span className="block text-gray-700 text-sm font-medium">
-                      {user?.name}
-                    </span>
-                    <span className="block text-gray-700 text-xs">
-                      {user?.email}
-                    </span>
+                <div>
+                  <div className="flex items-center relative group gap-x-3">
+                    <img
+                      src={getAuth().currentUser?.photoURL}
+                      className="w-10 h-10 rounded-full"
+                      alt="User Profile"
+                    />
+                    <div>
+                      <span className="block text-gray-700 text-sm font-medium">
+                        {getAuth().currentUser?.displayName}
+                      </span>
+                      <span className="block text-gray-700 text-xs">
+                        {getAuth().currentUser?.email}
+                      </span>
+                    </div>
+                    <button
+                      onClick={handleSignOut}
+                      className="px-2.5 py-2.5 text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100 active:bg-red-200"
+                    >
+                      Sign out
+                    </button>
                   </div>
                 </div>
               ) : (

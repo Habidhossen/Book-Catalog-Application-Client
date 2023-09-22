@@ -1,25 +1,47 @@
+import { Link } from "react-router-dom";
+import bannerImg from "../assets/images/banner.svg";
+
 const Banner = () => {
   return (
-    <section className="relative">
+    <section className="bg-lime-50 h-screen">
       {/* Gradient and blur background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 via-indigo-200 to-indigo-50 blur-xl"></div>
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 via-indigo-200 to-indigo-50 blur-xl z-0"></div> */}
 
-      <div className="container py-28 mx-auto relative text-center">
-        <div className="flex flex-col items-center justify-center h-full">
-          <div className="w-1/2">
-            <h1 className="text-5xl font-bold leading-snug">
-              Best place to choose <br />
-              your books.
-            </h1>
-            <p className="mt-4">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
-              beatae error laborum ab amet sunt recusandae? Reiciendis natus
-              perspiciatis optio.
-            </p>
-            <button className="w-full px-5 py-2 mt-6 text-sm text-white duration-300 transform bg-slate-950 rounded-lg lg:w-auto hover:bg-slate-800">
-              Explore now
-            </button>
-          </div>
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center">
+        <img className="mt-48" src={bannerImg} alt="banner" />
+        <div className="p-8">
+          <p className="uppercase text-sm font-medium text-[#16A571]">
+            The best of 2023
+          </p>
+          <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold lg:leading-snug">
+            Meet Your Next <br />
+            <span className="text-[#16A571]">Favorite</span> Book.
+          </h1>
+
+          <Link
+            to="all-books"
+            className="my-3 group relative inline-flex items-center overflow-hidden rounded-full bg-gray-950 px-8 py-3 text-white"
+          >
+            <span className="absolute -end-full transition-all group-hover:end-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="h-5 w-5 rtl:rotate-90 transform"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </span>
+            <span className="text-sm font-medium transition-all group-hover:me-4">
+              Discover Now
+            </span>
+          </Link>
         </div>
       </div>
     </section>
