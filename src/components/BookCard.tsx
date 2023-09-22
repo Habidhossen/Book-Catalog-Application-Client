@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { addToWishlist } from "../redux/features/books/wishlistSlice";
 import { useAppDispatch } from "../redux/hook";
@@ -12,6 +13,9 @@ const BookCard = ({ book }) => {
   // handle add to wishlist
   const handleAddToWishlist = () => {
     dispatch(addToWishlist(book));
+
+    // show success toast
+    toast.success("Book added to wishlist");
   };
 
   return (
@@ -26,7 +30,7 @@ const BookCard = ({ book }) => {
         </Link>
         <button
           onClick={() => handleAddToWishlist()}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-[#16a571] duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

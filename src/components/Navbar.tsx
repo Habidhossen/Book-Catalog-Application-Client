@@ -11,13 +11,8 @@ const Navbar = () => {
 
   // Redux dispatch and selector
   const { user } = useAppSelector((state) => state.user);
+  const wishlist = useAppSelector((state) => state.wishlist);
   const dispatch = useAppDispatch();
-
-  // navigation bar items with path
-  const navigation = [
-    { title: "All Books", to: "all-books" },
-    { title: "My Wishlist", to: "wishlist" },
-  ];
 
   // handle SignOut button
   const handleSignOut = () => {
@@ -82,18 +77,24 @@ const Navbar = () => {
           }`}
         >
           <ul className="justify-end items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
-            {navigation.map((item, idx) => {
-              return (
-                <li key={idx} className="text-gray-700 hover:text-indigo-600">
-                  <Link to={item.to} className="block">
-                    {item.title}
-                  </Link>
-                </li>
-              );
-            })}
+            <li className="text-gray-700 hover:text-[#16a571]">
+              <Link to="all-books" className="block">
+                All Books
+              </Link>
+            </li>
+            <li className="text-gray-700 hover:text-[#16a571]">
+              <Link to="wishlist" className="block">
+                My Wishlist {/* wishlist count badge */}
+                {wishlist?.books?.length > 0 && (
+                  <span className="bg-[#16a571] text-white rounded-full py-1 px-2 text-xs">
+                    {wishlist?.books?.length}
+                  </span>
+                )}
+              </Link>
+            </li>
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
             {user?.email && (
-              <li className="text-gray-700 hover:text-indigo-600">
+              <li className="text-gray-700 hover:text-[#16a571]">
                 <Link to="add-new-book" className="block">
                   Add Book
                 </Link>

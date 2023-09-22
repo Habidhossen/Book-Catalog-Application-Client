@@ -1,5 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { auth } from "./config/firebase.init";
@@ -26,6 +27,9 @@ function App() {
 
   return (
     <>
+      {/* React Hot Toast */}
+      <Toaster />
+
       {/* React Router */}
       <RouterProvider router={router} />
     </>

@@ -19,7 +19,7 @@ const RecentlyAddedBooks = () => {
   }
 
   return (
-    <section className="px-8 md:log-16 lg:px-20 py-20 bg-gray-50">
+    <section className="px-8 md:log-16 lg:px-20 py-20 bg-lime-50">
       <div className="text-center">
         <h1 className="text-2xl font-semibold">
           Recently <span className="text-[#16A571]">Added Book</span>

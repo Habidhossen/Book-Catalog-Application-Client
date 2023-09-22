@@ -8,7 +8,7 @@ const Banner = () => {
       {/* <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 via-indigo-200 to-indigo-50 blur-xl z-0"></div> */}
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center">
-        <img className="mt-48" src={bannerImg} alt="banner" />
+        <img className="mt-56" src={bannerImg} alt="banner" />
         <div className="p-8">
           <p className="uppercase text-sm font-medium text-[#16A571]">
             The best of 2023
