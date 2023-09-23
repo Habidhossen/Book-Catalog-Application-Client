@@ -54,7 +54,7 @@ const SignUp = () => {
       <div className="max-w-sm w-full text-gray-600 space-y-5">
         <div className="text-center pb-8">
           <div className="mt-5">
-            <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+            <h3 className="text-gray-800 text-xl font-bold sm:text-2xl">
               Create your account
             </h3>
           </div>
@@ -64,7 +64,7 @@ const SignUp = () => {
             <label className="font-medium">Name</label>
             <input
               type="text"
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
               {...register("name", { required: true })}
             />
             {errors.name && (
@@ -77,7 +77,7 @@ const SignUp = () => {
             <label className="font-medium">Email</label>
             <input
               type="email"
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
               {...register("email", { required: true })}
             />
             {errors.email && (
@@ -90,7 +90,7 @@ const SignUp = () => {
             <label className="font-medium">Password</label>
             <input
               type="password"
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
               {...register("password", { required: true })}
             />
             {errors.password && (
@@ -105,7 +105,7 @@ const SignUp = () => {
             )}
           </div>
           <div className="pt-4">
-            <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+            <button className="w-full px-4 py-2 text-white font-medium bg-green-600 hover:bg-green-500 active:bg-green-600 rounded-lg duration-150">
               {isLoading ? "Loading..." : "Sign in"}
             </button>
           </div>
@@ -147,7 +147,7 @@ const SignUp = () => {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="font-medium text-green-600 hover:text-green-500"
           >
             Login
           </Link>

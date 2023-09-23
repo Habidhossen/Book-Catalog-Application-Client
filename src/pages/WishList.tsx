@@ -20,7 +20,7 @@ const WishList = () => {
   return (
     <section>
       {wishlist?.books?.length > 0 ? (
-        <div className="mx-80 my-24 bg-lime-50 p-6 rounded-xl">
+        <div className="md:mx-60 lg:mx-80 my-24 bg-lime-50 p-6 rounded-xl">
           <div className="text-center mb-6">
             <h1 className="text-xl font-bold">Your Wishlist</h1>
             <p className="text-md">

@@ -238,7 +238,7 @@ const BookDetails = () => {
               </form>
             </div>
           ) : (
-            <p>Want to give Review to Login or SignUp now!</p>
+            <p>Please login and add your valuable review!</p>
           )}
         </div>
       </div>

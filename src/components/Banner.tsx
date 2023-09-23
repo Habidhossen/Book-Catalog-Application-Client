@@ -4,12 +4,9 @@ import bannerImg from "../assets/images/banner.svg";
 const Banner = () => {
   return (
     <section className="bg-lime-50 h-screen">
-      {/* Gradient and blur background */}
-      {/* <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 via-indigo-200 to-indigo-50 blur-xl z-0"></div> */}
-
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center">
         <img className="mt-56" src={bannerImg} alt="banner" />
-        <div className="p-8">
+        <div className="p-8 space-y-8 md:space-y-4 lg:space-y-4">
           <p className="uppercase text-sm font-medium text-[#16A571]">
             The best of 2023
           </p>
