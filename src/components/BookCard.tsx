@@ -2,8 +2,14 @@ import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { addToWishlist } from "../redux/features/books/wishlistSlice";
 import { useAppDispatch } from "../redux/hook";
+import { IBook } from "../types/globalTypes";
 
-const BookCard = ({ book }) => {
+// declare interface
+interface IProps {
+  book: IBook;
+}
+
+const BookCard = ({ book }: IProps) => {
   // handle dispatch
   const dispatch = useAppDispatch();
 

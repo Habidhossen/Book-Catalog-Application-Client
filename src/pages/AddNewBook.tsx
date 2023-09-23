@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { usePostBookMutation } from "../redux/features/books/bookApi";
 import { useAppSelector } from "../redux/hook";
-import { Book } from "../types/globalTypes";
+import { IBook } from "../types/globalTypes";
 
 const AddNewBook = () => {
   const [postBook, { isLoading, isError }] = usePostBookMutation();
@@ -15,10 +15,10 @@ const AddNewBook = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Book>();
+  } = useForm<IBook>();
 
   // Define the onSubmit function with the correct type
-  const onSubmit: SubmitHandler<Book> = (data) => {
+  const onSubmit: SubmitHandler<IBook> = (data) => {
     const bookData = {
       ...data,
       userEmail: user?.email,

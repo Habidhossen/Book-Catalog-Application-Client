@@ -5,7 +5,7 @@ import {
   useGetOneBookQuery,
   useUpdateBookMutation,
 } from "../redux/features/books/bookApi";
-import { Book } from "../types/globalTypes";
+import { IBook } from "../types/globalTypes";
 
 const EditBook = () => {
   // get book id from params
@@ -25,10 +25,10 @@ const EditBook = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Book>();
+  } = useForm<IBook>();
 
   // Define the onSubmit function with the correct type
-  const onSubmit: SubmitHandler<Book> = (data) => {
+  const onSubmit: SubmitHandler<IBook> = (data) => {
     const options = {
       bookId: book?.data._id,
       data: data,

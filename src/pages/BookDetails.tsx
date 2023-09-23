@@ -9,6 +9,7 @@ import {
   usePostBookReviewMutation,
 } from "../redux/features/books/bookApi";
 import { useAppSelector } from "../redux/hook";
+import { IReview } from "../types/globalTypes";
 
 const BookDetails = () => {
   // get book id from params
@@ -253,14 +254,14 @@ const BookDetails = () => {
         {data?.data?.reviews
           .slice()
           .reverse()
-          .map((review, index, reviewsArray) => (
+          .map((review: IReview, index: number, reviewsArray: IReview[]) => (
             <div key={review._id}>
               <div className="flex items-center gap-x-3">
                 <img
                   src={
                     review?.image
                       ? review?.image
-                      : "https://t4.ftcdn.net/jpg/05/42/36/11/360_F_542361185_VFRJWpR2FH5OiAEVveWO7oZnfSccZfD3.jpg"
+                      : "https://media.istockphoto.com/id/1008484130/vector/creative-vector-illustration-of-default-avatar-profile-placeholder-isolated-on-background.jpg?s=612x612&w=0&k=20&c=H57e2HUi6qDyPoBl8Om1dlX22--BqgGp64cFKsywWZ0="
                   }
                   className="w-12 h-12 rounded-full"
                 />

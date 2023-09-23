@@ -15,11 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Redux dispatch and selector
-  const {
-    user,
-    isLoading,
-    error: firebaseError,
-  } = useAppSelector((state) => state.user);
+  const { user, error: firebaseError } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   // Create the form

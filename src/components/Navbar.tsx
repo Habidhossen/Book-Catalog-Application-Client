@@ -22,10 +22,9 @@ const Navbar = () => {
     });
   };
 
-  /* 
   // get current User from firebase
-  const currentUser = getAuth().currentUser; 
-  */
+  const currentUser = getAuth().currentUser;
+  const photoURL = currentUser?.photoURL;
 
   return (
     <nav className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-10 text-sm">
@@ -105,7 +104,10 @@ const Navbar = () => {
                 <div>
                   <div className="flex items-center relative group gap-x-3">
                     <img
-                      src={getAuth().currentUser?.photoURL}
+                      src={
+                        photoURL ||
+                        "https://media.istockphoto.com/id/1008484130/vector/creative-vector-illustration-of-default-avatar-profile-placeholder-isolated-on-background.jpg?s=612x612&w=0&k=20&c=H57e2HUi6qDyPoBl8Om1dlX22--BqgGp64cFKsywWZ0="
+                      }
                       className="w-10 h-10 rounded-full"
                       alt="User Profile"
                     />

@@ -8,7 +8,7 @@ import {
   setSelectedPublicationYear,
 } from "../redux/features/books/bookSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { Book } from "../types/globalTypes";
+import { IBook } from "../types/globalTypes";
 
 const AllBooks = () => {
   const dispatch = useAppDispatch();
@@ -24,23 +24,25 @@ const AllBooks = () => {
   );
 
   // Handle search input change
-  const handleSearchInputChange = (e) => {
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));
   };
 
   // Handle genre filter change
-  const handleGenreFilterChange = (e) => {
+  const handleGenreFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setSelectedGenre(e.target.value));
   };
 
   // Handle publication year filter change
-  const handlePublicationYearFilterChange = (e) => {
+  const handlePublicationYearFilterChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     dispatch(setSelectedPublicationYear(e.target.value));
   };
 
   // Filter and render books
   const filteredBooks = data?.data
-    .filter((book: Book) => {
+    .filter((book: IBook) => {
       const titleMatch = book.title
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -53,9 +55,9 @@ const AllBooks = () => {
 
       return titleMatch || authorMatch || genreMatch;
     })
-    .filter((book: Book) => !selectedGenre || book.genre === selectedGenre)
+    .filter((book: IBook) => !selectedGenre || book.genre === selectedGenre)
     .filter(
-      (book: Book) =>
+      (book: IBook) =>
         !selectedPublicationYear ||
         book.publicationDate === selectedPublicationYear
     );
@@ -192,7 +194,7 @@ const AllBooks = () => {
 
         {/* all books here */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 py-12">
-          {displayBooks?.map((book: Book) => (
+          {displayBooks?.map((book: IBook) => (
             <BookCard key={book._id} book={book} />
           ))}
         </div>

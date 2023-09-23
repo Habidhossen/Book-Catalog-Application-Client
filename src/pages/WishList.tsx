@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 import emptyCart from "../assets/images/empty_cart.svg";
 import { removeFromWishlist } from "../redux/features/books/wishlistSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { Book } from "../types/globalTypes";
+import { IBook } from "../types/globalTypes";
 
 const WishList = () => {
   // Redux Selector and Dispatch method
@@ -10,7 +10,7 @@ const WishList = () => {
   const wishlist = useAppSelector((state) => state.wishlist);
 
   // handle remove from wishlist button
-  const handleRemoveFromWishlist = (book: Book) => {
+  const handleRemoveFromWishlist = (book: IBook) => {
     dispatch(removeFromWishlist(book));
 
     // show success toast

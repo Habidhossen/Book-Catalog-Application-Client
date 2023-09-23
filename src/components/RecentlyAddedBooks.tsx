@@ -1,5 +1,5 @@
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
-import { Book } from "../types/globalTypes";
+import { IBook } from "../types/globalTypes";
 import BookCard from "./BookCard";
 import Loader from "./Loader";
 
@@ -31,7 +31,7 @@ const RecentlyAddedBooks = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-8 py-12">
         {data?.data
-          .map((book: Book) => <BookCard key={book._id} book={book} />)
+          .map((book: IBook) => <BookCard key={book._id} book={book} />)
           .reverse()
           .slice(0, 10)}
       </div>

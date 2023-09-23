@@ -9,7 +9,7 @@ import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import SignUp from "../pages/SignUp";
 import WishList from "../pages/WishList";
-import PrivateRoute from "./privateRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
