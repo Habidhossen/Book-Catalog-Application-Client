@@ -14,6 +14,7 @@ const AddNewBook = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IBook>();
 
@@ -26,6 +27,7 @@ const AddNewBook = () => {
         "https://www.seobongo.com/en/placeholder/600x800/d5d5d5/584959/Book%20Catalog%20Application/png", //just add a new field for book cover placeholder in current object
     };
     postBook(bookData);
+    reset();
 
     // success toast
     toast.success("Book added successfully");
@@ -77,7 +79,7 @@ const AddNewBook = () => {
             )}
           </div>
           <div>
-            <label className="font-medium">Publication Date</label>
+            <label className="font-medium">Publication Year</label>
             <input
               type="number"
               min="1900"
@@ -88,7 +90,7 @@ const AddNewBook = () => {
             />
             {errors.publicationDate && (
               <span className="text-red-500 mt-2 text-xs">
-                Publication Date is required
+                Publication Year is required
               </span>
             )}
           </div>

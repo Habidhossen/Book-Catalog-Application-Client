@@ -94,7 +94,7 @@ const EditBook = () => {
             )}
           </div>
           <div>
-            <label className="font-medium">Publication Date</label>
+            <label className="font-medium">Publication Year</label>
             <input
               type="number"
               min="1900"
@@ -106,7 +106,7 @@ const EditBook = () => {
             />
             {errors.publicationDate && (
               <span className="text-red-500 mt-2 text-xs">
-                Publication Date is required
+                Publication Year is required
               </span>
             )}
           </div>

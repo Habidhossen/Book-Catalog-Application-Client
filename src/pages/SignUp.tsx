@@ -106,7 +106,7 @@ const SignUp = () => {
           </div>
           <div className="pt-4">
             <button className="w-full px-4 py-2 text-white font-medium bg-green-600 hover:bg-green-500 active:bg-green-600 rounded-lg duration-150">
-              {isLoading ? "Loading..." : "Sign in"}
+              {isLoading ? "Loading..." : "Sign Up"}
             </button>
           </div>
         </form>

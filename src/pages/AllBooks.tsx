@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { IBook } from "../types/globalTypes";
 
 const AllBooks = () => {
+  // redux
   const dispatch = useAppDispatch();
   const { data, isLoading, isError } = useGetBooksQuery(undefined, {
     refetchOnMountOrArgChange: true,
